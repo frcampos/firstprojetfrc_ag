@@ -1,21 +1,3 @@
-# Trabalho realizado por Fernando Campos e Aurora Graça
-# Verifica a temperatura entre 20 e 25 ºC no MicroBit
-# Regista Numa Lista através de Buffer as leituras periódica de temperatura para posterior DownLoad.Pode ser usado para verificação das variações motivada pelo transporte.
-# É ntroduzido um valor de compensação dado que a temperatura é do CPU e não do ambiente.
-# O valor por defeito é 2ºC mas poderá ser maior ou menor
-
-def on_button_pressed_a():
-    global temperaturaReal
-    regTemperature = bytearray(60 * numhorasRegisto)
-    index = 0
-    while index <= 60 * numhorasRegisto - 1:
-        compensacaoTemperatura = 0
-        temperaturaReal = input.temperature() - compensacaoTemperatura
-        regTemperature.set_number(NumberFormat.INT8_LE, index, temperaturaReal)
-        basic.pause(600 * intervaloRegisto)
-        index += 1
-input.on_button_pressed(Button.A, on_button_pressed_a)
-
 def verificaAlarmetemperatura(leituraTemperatura: number):
     if leituraTemperatura <= limSuperiorTemperatura and leituraTemperatura >= limInferiortemperatura:
         basic.show_icon(IconNames.HAPPY)
@@ -42,7 +24,7 @@ input.on_button_pressed(Button.AB, on_button_pressed_ab)
 
 # Verifica se icones estão a funcionar, Se colocar a zero não testa.
 def listIcones(num: number):
-    for index2 in range(num):
+    for index in range(num):
         basic.show_icon(IconNames.HAPPY)
         basic.pause(500)
         basic.show_icon(IconNames.HOUSE)
@@ -54,11 +36,8 @@ limSuperiorTemperatura = 0
 limInferiortemperatura = 0
 temperaturaMinimaregistada = 0
 temperaturaMaximaregistada = 0
-intervaloRegisto = 0
 numhorasRegisto = 0
 temperaturaReal = 0
-intervaloRegisto = 1
-numhorasRegisto = 360
 basic.clear_screen()
 temperaturaMaximaregistada = 21
 temperaturaMinimaregistada = 21
