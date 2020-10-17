@@ -4,8 +4,12 @@
 // É ntroduzido um valor de compensação dado que a temperatura é do CPU e não do ambiente.
 // O valor por defeito é 2ºC mas poderá ser maior ou menor
 input.onButtonPressed(Button.A, function () {
-    for (let index = 0; index < 60 * numhorasRegisto; index++) {
-        basic.pause(60000 * intervaloRegisto)
+    let regTemperature = pins.createBuffer(60 * numhorasRegisto)
+for (let index = 0; index <= 60 * numhorasRegisto - 1; index++) {
+        let compensacaoTemperatura = 0
+        temperaturaReal = input.temperature() - compensacaoTemperatura
+        regTemperature.setNumber(NumberFormat.Int8LE, index, temperaturaReal)
+basic.pause(600 * intervaloRegisto)
     }
 })
 function verificaAlarmetemperatura (leituraTemperatura: number) {
@@ -44,13 +48,15 @@ function listIcones (num: number) {
     }
     return 0
 }
-let temperaturaReal = 0
-let intervaloRegisto = 0
-let numhorasRegisto = 0
 let limSuperiorTemperatura = 0
 let limInferiortemperatura = 0
 let temperaturaMinimaregistada = 0
 let temperaturaMaximaregistada = 0
+let intervaloRegisto = 0
+let numhorasRegisto = 0
+let temperaturaReal = 0
+intervaloRegisto = 1
+numhorasRegisto = 360
 basic.clearScreen()
 temperaturaMaximaregistada = 21
 temperaturaMinimaregistada = 21
@@ -61,8 +67,8 @@ intervaloRegisto = 30
 basic.pause(listIcones(1))
 basic.showIcon(IconNames.Yes)
 basic.forever(function () {
-    let compensacaoTemperatura = 0
-    temperaturaReal = input.temperature() - compensacaoTemperatura
+    let compensacaoTemperatura2 = 0
+    temperaturaReal = input.temperature() - compensacaoTemperatura2
     basic.showNumber(temperaturaReal)
     basic.pause(500)
     temperaturaMaximaregistada = Math.max(temperaturaMaximaregistada, temperaturaReal)
