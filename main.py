@@ -32,12 +32,11 @@ def listIcones(num: number):
         basic.show_icon(IconNames.HEART)
         basic.pause(200)
     return 0
+temperaturaReal = 0
 limSuperiorTemperatura = 0
 limInferiortemperatura = 0
 temperaturaMinimaregistada = 0
 temperaturaMaximaregistada = 0
-numhorasRegisto = 0
-temperaturaReal = 0
 basic.clear_screen()
 temperaturaMaximaregistada = 21
 temperaturaMinimaregistada = 21
@@ -47,6 +46,7 @@ numhorasRegisto = 24
 intervaloRegisto = 30
 basic.pause(listIcones(1))
 basic.show_icon(IconNames.YES)
+basic.clear_screen()
 
 def on_forever():
     global temperaturaReal, temperaturaMaximaregistada, temperaturaMinimaregistada
