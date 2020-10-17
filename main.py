@@ -5,8 +5,15 @@
 # O valor por defeito é 2ºC mas poderá ser maior ou menor
 
 def on_button_pressed_a():
-    for index in range(60 * numhorasRegisto):
-        basic.pause(60000 * intervaloRegisto)
+    global temperaturaReal
+    regTemperature = bytearray(60 * numhorasRegisto)
+    index = 0
+    while index <= 60 * numhorasRegisto - 1:
+        compensacaoTemperatura = 0
+        temperaturaReal = input.temperature() - compensacaoTemperatura
+        regTemperature.set_number(NumberFormat.INT8_LE, index, temperaturaReal)
+        basic.pause(600 * intervaloRegisto)
+        index += 1
 input.on_button_pressed(Button.A, on_button_pressed_a)
 
 def verificaAlarmetemperatura(leituraTemperatura: number):
@@ -27,6 +34,7 @@ def verificaAlarmetemperatura(leituraTemperatura: number):
 
 def on_button_pressed_ab():
     global temperaturaMinimaregistada, temperaturaMaximaregistada
+    basic.clear_screen()
     temperaturaMinimaregistada = 21
     temperaturaMaximaregistada = 21
     music.stop_melody(MelodyStopOptions.ALL)
@@ -42,13 +50,15 @@ def listIcones(num: number):
         basic.show_icon(IconNames.HEART)
         basic.pause(200)
     return 0
-temperaturaReal = 0
-intervaloRegisto = 0
-numhorasRegisto = 0
 limSuperiorTemperatura = 0
 limInferiortemperatura = 0
 temperaturaMinimaregistada = 0
 temperaturaMaximaregistada = 0
+intervaloRegisto = 0
+numhorasRegisto = 0
+temperaturaReal = 0
+intervaloRegisto = 1
+numhorasRegisto = 360
 basic.clear_screen()
 temperaturaMaximaregistada = 21
 temperaturaMinimaregistada = 21
@@ -61,8 +71,8 @@ basic.show_icon(IconNames.YES)
 
 def on_forever():
     global temperaturaReal, temperaturaMaximaregistada, temperaturaMinimaregistada
-    compensacaoTemperatura = 0
-    temperaturaReal = input.temperature() - compensacaoTemperatura
+    compensacaoTemperatura2 = 0
+    temperaturaReal = input.temperature() - compensacaoTemperatura2
     basic.show_number(temperaturaReal)
     basic.pause(500)
     temperaturaMaximaregistada = max(temperaturaMaximaregistada, temperaturaReal)
@@ -70,6 +80,6 @@ def on_forever():
     basic.show_number(temperaturaMaximaregistada)
     basic.pause(20)
     basic.show_number(temperaturaMinimaregistada)
-    basic.pause(20)
+    basic.pause(500)
     verificaAlarmetemperatura(temperaturaReal)
 basic.forever(on_forever)
