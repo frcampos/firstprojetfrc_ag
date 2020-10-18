@@ -40,6 +40,7 @@ let limInferiortemperatura = 0
 let temperaturaMinimaregistada = 0
 let temperaturaMaximaregistada = 0
 basic.clearScreen()
+let compensacaoTemperatura = 0
 temperaturaMaximaregistada = 21
 temperaturaMinimaregistada = 21
 limInferiortemperatura = 20
@@ -50,8 +51,7 @@ basic.pause(listIcones(1))
 basic.showIcon(IconNames.Yes)
 basic.clearScreen()
 basic.forever(function () {
-    let compensacaoTemperatura2 = 0
-    temperaturaReal = input.temperature() - compensacaoTemperatura2
+    temperaturaReal = input.temperature() - compensacaoTemperatura
     basic.showNumber(temperaturaReal)
     basic.pause(500)
     temperaturaMaximaregistada = Math.max(temperaturaMaximaregistada, temperaturaReal)
