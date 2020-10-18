@@ -46,25 +46,32 @@ function listIcones (num: number) {
     }
     return 0
 }
+// Trabalho By - Fernando Campos e Aurora Graça
+// Definição e parametrização de variáveis tais como as responsáveis pela janela de funcionamento.
+// a variável compensacaoTemperatura apenas pode ser utilizado um valor diferente de zero se experimentalmente tal tal venha a ser necessário.
+// Nas variáveis via variáveis:  limInferiortemperatura e limSuperiorTemperatura 
+// Caso a temperatura seja superior a limSuperiorTemperatura soa uma melodia especifica e com nível pre-programado tambem especifico e com símbolo específico.
+// Caso a temperatura seja inferior a limInferiortemperatura soa uma melodia especifica e com nível pre-programado também especifico e com símbolo específico.
+// Caso a temperatura se encontre entre 20 e 25, apenas surge um simbolo específico.
+// Faz ainda um teste à matriz e ao som do dispositivo Microbit
+// 
 let temperaturaReal = 0
 let limSuperiorTemperatura = 0
 let limInferiortemperatura = 0
 let temperaturaMinimaregistada = 0
 let temperaturaMaximaregistada = 0
 basic.clearScreen()
+let compensacaoTemperatura = 0
 temperaturaMaximaregistada = 21
 temperaturaMinimaregistada = 21
 limInferiortemperatura = 20
 limSuperiorTemperatura = 25
-let numhorasRegisto = 24
-let intervaloRegisto = 30
 basic.pause(listIcones(1))
 basic.pause(verificaSom(1))
 basic.showIcon(IconNames.Yes)
 basic.clearScreen()
 basic.forever(function () {
-    let compensacaoTemperatura2 = 0
-    temperaturaReal = input.temperature() - compensacaoTemperatura2
+    temperaturaReal = input.temperature() - compensacaoTemperatura
     basic.showNumber(temperaturaReal)
     basic.pause(500)
     temperaturaMaximaregistada = Math.max(temperaturaMaximaregistada, temperaturaReal)
