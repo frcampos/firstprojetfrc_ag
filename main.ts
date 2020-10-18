@@ -1,12 +1,24 @@
+// Verifica se icones estão a funcionar, Se colocar a zero não testa.
+function verificaSom (num: number) {
+    for (let index = 0; index < num; index++) {
+        basic.showIcon(IconNames.Happy)
+        basic.pause(100)
+        music.setVolume(255)
+        music.playMelody("C D E F G A B C5 ", 120)
+        basic.pause(1000)
+        music.playMelody("C5 B A G F E D C ", 120)
+    }
+    return 0
+}
 function verificaAlarmetemperatura (leituraTemperatura: number) {
     if (leituraTemperatura <= limSuperiorTemperatura && leituraTemperatura >= limInferiortemperatura) {
         basic.showIcon(IconNames.Happy)
     }
     if (leituraTemperatura > limSuperiorTemperatura) {
         basic.showIcon(IconNames.House)
-        basic.pause(1000)
         music.setVolume(255)
         music.playMelody("C D E F G A B C5 ", 120)
+        basic.pause(1000)
     } else if (leituraTemperatura < limInferiortemperatura) {
         basic.showIcon(IconNames.Heart)
         basic.pause(1000)
@@ -40,7 +52,6 @@ let limInferiortemperatura = 0
 let temperaturaMinimaregistada = 0
 let temperaturaMaximaregistada = 0
 basic.clearScreen()
-let compensacaoTemperatura = 0
 temperaturaMaximaregistada = 21
 temperaturaMinimaregistada = 21
 limInferiortemperatura = 20
@@ -48,10 +59,12 @@ limSuperiorTemperatura = 25
 let numhorasRegisto = 24
 let intervaloRegisto = 30
 basic.pause(listIcones(1))
+basic.pause(verificaSom(1))
 basic.showIcon(IconNames.Yes)
 basic.clearScreen()
 basic.forever(function () {
-    temperaturaReal = input.temperature() - compensacaoTemperatura
+    let compensacaoTemperatura2 = 0
+    temperaturaReal = input.temperature() - compensacaoTemperatura2
     basic.showNumber(temperaturaReal)
     basic.pause(500)
     temperaturaMaximaregistada = Math.max(temperaturaMaximaregistada, temperaturaReal)
